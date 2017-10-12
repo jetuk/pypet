@@ -4,9 +4,9 @@ sudo: false
 
 env:
     matrix:
-        - CONDA_NPY=111  CONDA_PY=27
-        - CONDA_NPY=111  CONDA_PY=34
-        - CONDA_NPY=113  CONDA_PY=36
+        - CONDA_NPY=1.11  CONDA_PY=2.7
+        - CONDA_NPY=1.11  CONDA_PY=3.4
+        - CONDA_NPY=1.13  CONDA_PY=3.6
 
 install:
     - |
@@ -17,7 +17,7 @@ install:
       export PATH=/home/travis/miniconda3/bin:$PATH
       conda update --yes conda
 
-      conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy pytest
+      conda create --yes -q -n test-environment python=$CONDA_PY numpy=%CONDA_NPY pytest
       source activate test-environment
       python setup.py install
 
