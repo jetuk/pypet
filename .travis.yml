@@ -17,7 +17,7 @@ install:
       export PATH=/home/travis/miniconda3/bin:$PATH
       conda update --yes conda
 
-      conda create --yes -q -n test-environment python=$CONDA_PY numpy=%CONDA_NPY pytest
+      conda create --yes -q -n test-environment python=$CONDA_PY numpy=$CONDA_NPY pytest
       source activate test-environment
       python setup.py install
 
