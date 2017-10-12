@@ -122,12 +122,11 @@ PyMODINIT_FUNC PyInit__pet_ufunc(void)
     return m;
 }
 #else
-PyMODINIT_FUNC init_sol_ufunc(void)
+PyMODINIT_FUNC init_pet_ufunc(void)
 {
-    PyObject *m, *declination, *sunset_hour_angle, *daily_extraterrestrial_radiation, *d;
+    PyObject *m, *oudin, *d;
 
-
-    m = Py_InitModule("_sol_ufunc", SolMethods);
+    m = Py_InitModule("_pet_ufunc", PetMethods);
     if (m == NULL) {
         return;
     }
@@ -135,19 +134,13 @@ PyMODINIT_FUNC init_sol_ufunc(void)
     import_array();
     import_umath();
 
-    declination = PyUFunc_FromFuncAndData(declination_funcs, data, declination_types, 2, 1, 1,
-                                    PyUFunc_None, "declination", "declination_docstring", 0);
-    sunset_hour_angle = PyUFunc_FromFuncAndData(declination_funcs, data, declination_types, 2, 2, 1,
-                                    PyUFunc_None, "sunset_hour_angle", "sunset_hour_angle_docstring", 0);
-    daily_extraterrestrial_radiation = PyUFunc_FromFuncAndData(radiation_funcs, data, radiation_types, 1, 2, 1,
-                                    PyUFunc_None, "daily_extraterrestrial_radiation", "daily_extraterrestrial_radiation_docstring", 0);
+    oudin = PyUFunc_FromFuncAndData(oudin_funcs, data, oudin_types, 1, 3, 1,
+                                    PyUFunc_None, "oudin", "oudin_docstring", 0);
 
     d = PyModule_GetDict(m);
 
-    PyDict_SetItemString(d, "declination", declination);
-    PyDict_SetItemString(d, "sunset_hour_angle", sunset_hour_angle);
-    PyDict_SetItemString(d, "daily_extraterrestrial_radiation", daily_extraterrestrial_radiation);
+    PyDict_SetItemString(d, "oudin", oudin);
 
-    Py_DECREF(declination);
+    Py_DECREF(oudin);
 }
 #endif

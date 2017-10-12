@@ -107,12 +107,12 @@ static void float_sunset_hour_angle(char **args, npy_intp *dimensions,
     npy_intp in1_step = steps[0], in2_step = steps[1];
     npy_intp out1_step = steps[2];
 
-    double latitude, declination;
+    float latitude, declination;
 
     for (i = 0; i < n; i++) {
         latitude = *(float *)in1;
         declination = *(float *)in2;
-        *((double *)out1) = _float_sunset_hour_angle(latitude, declination);
+        *((float *)out1) = _float_sunset_hour_angle(latitude, declination);
 
         in1 += in1_step;
         in2 += in2_step;
@@ -237,7 +237,7 @@ PyMODINIT_FUNC init_sol_ufunc(void)
 
     declination = PyUFunc_FromFuncAndData(declination_funcs, data, declination_types, 2, 1, 1,
                                     PyUFunc_None, "declination", "declination_docstring", 0);
-    sunset_hour_angle = PyUFunc_FromFuncAndData(declination_funcs, data, declination_types, 2, 2, 1,
+    sunset_hour_angle = PyUFunc_FromFuncAndData(sunset_hour_angle_funcs, data, sunset_hour_angle_types, 2, 2, 1,
                                     PyUFunc_None, "sunset_hour_angle", "sunset_hour_angle_docstring", 0);
     daily_extraterrestrial_radiation = PyUFunc_FromFuncAndData(radiation_funcs, data, radiation_types, 1, 2, 1,
                                     PyUFunc_None, "daily_extraterrestrial_radiation", "daily_extraterrestrial_radiation_docstring", 0);
