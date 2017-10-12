@@ -1,0 +1,28 @@
+language: python
+
+sudo: false
+
+env:
+    matrix:
+        - CONDA_NPY=111  CONDA_PY=27
+        - CONDA_NPY=111  CONDA_PY=34
+        - CONDA_NPY=113  CONDA_PY=36
+
+install:
+    - |
+      MINICONDA_URL="https://repo.continuum.io/miniconda"
+      MINICONDA_FILE="Miniconda3-latest-Linux-x86_64.sh"
+      wget ${MINICONDA_URL}/${MINICONDA_FILE}
+      bash ${MINICONDA_FILE} -b
+      export PATH=/home/travis/miniconda3/bin:$PATH
+      conda update --yes conda
+
+      conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy pytest
+      source activate test-environment
+      python setup.py install
+
+script:
+    - py.test tests
+
+notifications:
+    email: false
