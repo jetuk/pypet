@@ -13,6 +13,10 @@ static double _double_sunset_hour_angle(double latitude, double declination) {
     return acos(-tan(latitude)*tan(declination));
 }
 
+static float _float_sunset_hour_angle(float latitude, float declination) {
+    return acos(-tan(latitude)*tan(declination));
+}
+
 /* Solar constant in W/m2 */
 double SOLAR_CONSTANT_DOUBLE = 1367;
 float SOLAR_CONSTANT_FLOAT = 1367;

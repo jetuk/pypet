@@ -112,7 +112,7 @@ static void float_sunset_hour_angle(char **args, npy_intp *dimensions,
     for (i = 0; i < n; i++) {
         latitude = *(float *)in1;
         declination = *(float *)in2;
-        *((float *)out1) = acos(-tan(latitude)*tan(declination));
+        *((double *)out1) = _float_sunset_hour_angle(latitude, declination);
 
         in1 += in1_step;
         in2 += in2_step;
